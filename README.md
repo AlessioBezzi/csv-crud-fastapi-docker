@@ -8,6 +8,10 @@ The project is designed to be easily configured with **Anaconda** and includes c
 You can quickly set up the Docker configuration for this project using the `docker init` command:
 
 1. Run the following command in your project directory:
-   > docker init
+   ```bash
+   docker init
+   ```
 2. After that you can build it and run
-   > docker compose up --build
+   ```bash
+   docker compose up --build
+   ```
