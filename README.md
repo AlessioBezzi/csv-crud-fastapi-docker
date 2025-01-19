@@ -7,7 +7,7 @@ The project is designed to be easily configured with **Anaconda** and includes c
 
 You can quickly set up the Docker configuration for this project using the `docker init` command:
 
-1. Run the following command in your project directory:
+1. Run the following command in your project directory to create a Dockerfile:
    ```bash
    docker init
    ```

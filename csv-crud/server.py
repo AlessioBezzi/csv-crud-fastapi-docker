@@ -14,13 +14,13 @@ class Item(BaseModel):
 
 CSV_FILE_PATH = "data.csv"
 
-#read from file
+#from file to dataframe
 def read_csv():
     return pd.read_csv(CSV_FILE_PATH)
 
-#write into file
+#from dataframe to csv
 def write_csv(df):
-    df.to_csv(CSV_FILE_PATH, index = False)
+    df.to_csv(CSV_FILE_PATH, index = False) #no indexes
 
 #count elements endpoint
 @app.get("/items/count")
@@ -34,7 +34,7 @@ def create_item(item: Item):
     df = read_csv()
     if item.id in df['id'].values:
         raise HTTPException(status_code=400, detail=f"id {item.id} already existing")
-    new_record = pd.DataFrame([item.model_dump()]) #turn into 1 line string
+    new_record = pd.DataFrame([item.model_dump()]) #turn into 1 line string and create new record
     df = pd.concat([df, new_record])
     write_csv(df)
     return item
@@ -56,7 +56,7 @@ def get_item(id: int):
 
 #update existing record endpoint
 @app.put("/items/{id}")
-def update_item(id: int, item: Item):
+def update_item(id: str, item: Item):
     df = read_csv()
     if id not in df['id'].values:
         raise HTTPException(status_code=404, detail=f"record {id} not found")
@@ -67,7 +67,7 @@ def update_item(id: int, item: Item):
 
 #delete record endpoint
 @app.delete("/items/{id}")
-def delete_item(id: int):
+def delete_item(id: str):
     df = read_csv()
     if id not in df['id'].values:
         raise HTTPException(status_code=404, detail=f"record {id} not found")
